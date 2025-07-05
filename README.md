@@ -19,7 +19,7 @@ public class Produk {
     ...
 }
 
-public class ProdukElektronik extends Produk { {
+public class ProdukElektronik extends Produk {
     ...
 }
 
@@ -36,113 +36,124 @@ public class PenjualanBeraksi {
 }
 ```
 
-2. **Object** adalah instance dari class. Pada kode ini, `mhs[i] = new MahasiswaDetail(nama, npm);` adalah contoh pembuatan object.
+2. **Object** adalah instance dari class. Pada kode ini, `SistemPenjualan toko = new SistemPenjualan();` adalah contoh pembuatan object.
 
 ```bash
-mhs[i] = new MahasiswaDetail(nama, npm);
+daftarProduk.add(new Produk("Buku Tulis", 500));
 ```
 
-3. **Atribut** adalah variabel yang ada dalam class. Pada kode ini, `nama` dan `npm` adalah contoh atribut.
+3. **Atribut** adalah variabel yang ada dalam class. Pada kode ini, `nama` dan `harga` adalah contoh atribut.
 
 ```bash
 String nama;
-String npm;
+double harga;
 ```
 
-4. **Constructor** adalah method yang pertama kali dijalankan pada saat pembuatan object. Pada kode ini, constructor ada di dalam class `Mahasiswa` dan `MahasiswaDetail`.
+4. **Constructor** adalah method yang pertama kali dijalankan pada saat pembuatan object. Pada kode ini, constructor ada di dalam class `Produk`, `ProdukElektronik` dan `ItemPenjualan`.
 
 ```bash
-public Mahasiswa(String nama, String npm) {
+public Produk(String nama, double harga) {
     this.nama = nama;
-    this.npm = npm;
+    this.harga = harga;
 }
 
-public MahasiswaDetail(String nama, String npm) {
-    super(nama, npm);
+public ItemPenjualan(Produk produk, int jumlah) {
+    this.produk = produk;
+    this.jumlah = jumlah;
+}
+
+public ProdukElektronik(String nama, double harga, String garansi) {
+    super(nama, harga); 
+    this.garansi = garansi;
 }
 ```
 
 5. **Mutator** atau setter digunakan untuk mengubah nilai dari suatu atribut. Pada kode ini, `setNama` dan `setNpm` adalah contoh method mutator.
 
 ```bash
-public void setNama(String nama) {
-    this.nama = nama;
+public void setHarga(double harga) {
+    this.harga = harga;
 }
 
-public void setNpm(String npm) {
-    this.npm = npm;
-}
 ```
 
-6. **Accessor** atau getter digunakan untuk mengambil nilai dari suatu atribut. Pada kode ini, `getNama`, `getNpm`, `getTahunMasuk`, `getFakultas`, `getProdi`, dan `getNoRegistrasi` adalah contoh method accessor.
+6. **Accessor** atau getter digunakan untuk mengambil nilai dari suatu atribut. Pada kode ini, `getNama` dan `getHarga` adalah contoh method accessor.
 
 ```bash
 public String getNama() {
     return nama;
 }
-
-public String getNpm() {
-    return npm;
+    
+public double getHarga() {
+    return harga;
 }
 ```
 
-7. **Encapsulation** adalah konsep menyembunyikan data dengan membuat atribut menjadi private dan hanya bisa diakses melalui method. Pada kode ini, atribut `nama` dan `npm` dienkapsulasi dan hanya bisa diakses melalui method getter dan setter.
+7. **Encapsulation** adalah konsep menyembunyikan data dengan membuat atribut menjadi private dan hanya bisa diakses melalui method. Pada kode ini, atribut `nama` dan `harga` dienkapsulasi dan hanya bisa diakses melalui method getter dan setter.
 
 ```bash
-private String nama;
-private String npm;
+protected String nama;
+protected double harga;
 ```
 
-8. **Inheritance** adalah konsep di mana sebuah class bisa mewarisi property dan method dari class lain. Pada kode ini, `MahasiswaDetail` mewarisi `Mahasiswa` dengan sintaks `extends`.
+8. **Inheritance** adalah konsep di mana sebuah class bisa mewarisi property dan method dari class lain. Pada kode ini, `ProdukElektronik` mewarisi `Produk` dengan sintaks `extends`.
 
 ```bash
-public class MahasiswaDetail extends Mahasiswa {
+public class ProdukElektronik extends Produk {
     ...
 }
 ```
 
-9. **Polymorphism** adalah konsep di mana sebuah nama dapat digunakan untuk merujuk ke beberapa tipe atau bentuk objek berbeda. Ini memungkinkan metode-metode dengan nama yang sama untuk berperilaku berbeda tergantung pada tipe objek yang mereka manipulasi, polymorphism bisa berbentuk Overloading ataupun Overriding. Pada kode ini, method `displayInfo(String)` di `Mahasiswa` merupakan overloading method `displayInfo` dan `displayInfo` di `MahasiswaDetail` merupakan override dari method `displayInfo` di `Mahasiswa`.
+9. **Polymorphism** adalah konsep di mana sebuah nama dapat digunakan untuk merujuk ke beberapa tipe atau bentuk objek berbeda. Ini memungkinkan metode-metode dengan nama yang sama untuk berperilaku berbeda tergantung pada tipe objek yang mereka manipulasi, polymorphism bisa berbentuk Overloading ataupun Overriding. Pada kode ini, method `tampilkanInfo(String)` di `Produk` merupakan overloading method `tampilkanInfo` dan `tampilkanInfo` di `ProdukElektronik` merupakan override dari method `displayInfo` di `Produk`.
 
 ```bash
-public String displayInfo(String kelas) {
-    return displayInfo() + "\nKelas: " + kelas;
+public void tampilkanInfo() {
+    System.out.println("Produk: " + nama + " | Harga: Rp" + harga);
 }
 
 @Override
-public String displayInfo() {
+public void tampilkanInfo() {
     ...
 }
 ```
 
-10. **Seleksi** adalah statement kontrol yang digunakan untuk membuat keputusan berdasarkan kondisi. Pada kode ini, digunakan seleksi `if else` dalam method `getFakultas` dan seleksi `switch` dalam method `getProdi`.
+10. **Seleksi** adalah statement kontrol yang digunakan untuk membuat keputusan berdasarkan kondisi. Pada kode ini, digunakan seleksi `if else` dalam method `get` dan seleksi `switch` dalam method `get`.
 
 ```bash
-public String getFakultas() {
-    if(getNpm().substring(2, 4).equals("10")){
-        return "Teknologi Informasi";
-    } else {
-        return "Fakultas lain";
+    if (jumlah > 0) {
+        keranjang.add(new ItemPenjualan(produk, jumlah));
+        System.out.println("Berhasil menambahkan " + jumlah + " " + produk.getNama() + " ke keranjang!");
+    }
+    else {
+        System.out.println("Jumlah harus lebih dari 0!");
     }
 
-    //return getNpm().substring(2, 4).equals("10") ? "Teknologi Informasi" : "Fakultas lain";
-}
-
-public String getProdi() {
-    switch(getNpm().substring(4, 6)) {
-        case "01":
-            return "Teknik Informatika";
-        case "02":
-            return "Sistem Informasi";
-        default:
-            return "Prodi lain";
-    }
+switch (pilihan) {
+    case 1:
+        toko.tampilkanDaftarProduk();
+        break;
+    case 2:
+        beliProduk(toko);
+        break;
+    case 3:
+        toko.tampilkanKeranjang();
+        break;
+    case 4:
+        toko.checkout();
+        break;
+    case 5:
+        System.out.println("Terima kasih! Sampai jumpa!");
+        scanner.close();
+        return;
+    default:
+        System.out.println("Pilihan tidak valid! Silakan pilih 1-5.");
 }
 ```
 
 11. **Perulangan** adalah statement kontrol yang digunakan untuk menjalankan blok kode berulang kali. Pada kode ini, digunakan loop `for` untuk meminta input dan menampilkan data.
 
 ```bash
-for (int i = 0; i < mahasiswas.length; i++) {
+for (int i = 0; i < daftarProduk.size(); i++) {
     ...
 }
 ```
@@ -150,27 +161,35 @@ for (int i = 0; i < mahasiswas.length; i++) {
 12. **Input Output Sederhana** digunakan untuk menerima input dari user dan menampilkan output ke user. Pada kode ini, digunakan class `Scanner` untuk menerima input dan method `System.out.println` untuk menampilkan output.
 
 ```bash
-Scanner scanner = new Scanner(System.in);
-System.out.print("Masukkan Nama Mahasiswa ke-" + (i + 1) + ": ");
-String nama = scanner.nextLine();
+toko.tampilkanDaftarProduk();
+System.out.print("Pilih nomor produk: ");
 
-System.out.println("\nData Mahasiswa:");
-System.out.println(mahasiswa.displayInfo());
+System.out.print("Masukkan jumlah: ");
+scanner.nextLine();
 ```
 
-13. **Array** adalah struktur data yang digunakan untuk menyimpan beberapa nilai dalam satu variabel. Pada kode ini, `MahasiswaDetail[] mahasiswas = new MahasiswaDetail[2];` adalah contoh penggunaan array.
+13. **Array** adalah struktur data yang digunakan untuk menyimpan beberapa nilai dalam satu variabel. Pada kode ini, `Produk[] dafratProduk = new Produk[2];` adalah contoh penggunaan array.
 
 ```bash
-MahasiswaDetail[] mahasiswas = new MahasiswaDetail[2];
+ArrayList<Produk> daftarProduk = new ArrayList<>();
 ```
 
 14. **Error Handling** digunakan untuk menangani error yang mungkin terjadi saat runtime. Pada kode ini, digunakan `try catch` untuk menangani error.
 
 ```bash
-try {
-    // code that might throw an exception
-} catch (Exception e) {
-    System.out.println("Error: " + e.getMessage());
+try { 
+    toko.tampilkanDaftarProduk();
+    System.out.print("Pilih nomor produk: ");
+    int nomorProduk = scanner.nextInt() - 1;  // Convert to index
+            
+    System.out.print("Masukkan jumlah: ");
+    int jumlah = scanner.nextInt();
+            
+    toko.tambahKeKeranjang(nomorProduk, jumlah);
+}
+catch (Exception e) {  // ===== MATERI 14: ERROR HANDLING =====
+    System.out.println("Input tidak valid!");
+     scanner.nextLine(); // Clear buffer
 }
 ```
 
